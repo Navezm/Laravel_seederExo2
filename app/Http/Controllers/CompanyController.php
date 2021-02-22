@@ -14,7 +14,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        //
+        $companies = company::all();
+        return view('welcome', compact('companies'));
     }
 
     /**
@@ -44,9 +45,10 @@ class CompanyController extends Controller
      * @param  \App\Models\company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(company $company)
+    public function show($id)
     {
-        //
+        $show = company::find($id);
+        return view('pages.show', compact('show'));
     }
 
     /**
@@ -55,9 +57,10 @@ class CompanyController extends Controller
      * @param  \App\Models\company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(company $company)
+    public function edit($id)
     {
-        //
+        $show = company::find($id);
+        return view('pages.edit', compact('show'));
     }
 
     /**
@@ -67,9 +70,18 @@ class CompanyController extends Controller
      * @param  \App\Models\company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, company $company)
+    public function update($id, Request $request)
     {
-        //
+        $updateEntry = company::find($id);
+        $updateEntry->company = $request->company;
+        $updateEntry->address = $request->address;
+        $updateEntry->phone = $request->phone;
+        $updateEntry->email = $request->email;
+        $updateEntry->name = $request->name;
+        $updateEntry->surname = $request->surname;
+        $updateEntry->src = $request->src;
+        $updateEntry->save();
+        return redirect('/');
     }
 
     /**
@@ -78,8 +90,10 @@ class CompanyController extends Controller
      * @param  \App\Models\company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(company $company)
+    public function destroy($id)
     {
-        //
+        $destroy = company::find($id);
+        $destroy->delete();
+        return redirect('/');
     }
 }
