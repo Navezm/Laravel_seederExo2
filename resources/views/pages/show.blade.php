@@ -1,5 +1,5 @@
 @extends('template.main')
 
 @section('content')
-    @include('pages.show')
+    @include('partials.jumbotron')
 @endsection
